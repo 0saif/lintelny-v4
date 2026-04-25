@@ -185,15 +185,7 @@
 
       await submitToNetlify('cost-guide-request', { email, name, source: 'exit-intent' });
 
-      document.getElementById('ln-exit-body').innerHTML = `
-        <div class="ln-ex-success">
-          <h3>✓ Check your inbox</h3>
-          <p>The 2026 NYC Renovation Cost Guide is on its way to ${email}.<br>
-          We'll also respond to any project questions at (212) 347-2111.</p>
-        </div>
-      `;
-
-      setTimeout(() => overlay.classList.remove('show'), 4000);
+      window.location.href = '/downloads/lintelny-nyc-cost-guide-2026.pdf';
     });
   }
 
@@ -207,42 +199,49 @@
       sub: '12-page breakdown: scope, costs by borough, what moves the price, and red flags.',
       formName: 'bathroom-guide',
       placeholder: 'Email for the bathroom guide',
+      pdf: '/downloads/lintelny-nyc-cost-guide-2026.pdf',
     },
     '/services/kitchen-remodeling-nyc': {
       title: 'NYC Kitchen Remodel Cost Guide 2026',
       sub: 'The five cost buckets, cabinetry tiers, permit requirements, and sequencing guide.',
       formName: 'kitchen-guide',
       placeholder: 'Email for the kitchen guide',
+      pdf: '/downloads/lintelny-nyc-cost-guide-2026.pdf',
     },
     '/services/coop-condo-renovation-nyc': {
       title: 'NYC Co-op Alteration Checklist — 23 Items',
       sub: 'Everything you need for a complete first-submission alteration package.',
       formName: 'coop-checklist',
       placeholder: 'Email for the co-op checklist',
+      pdf: '/downloads/lintelny-coop-checklist.pdf',
     },
     '/services/brownstone-renovation-brooklyn': {
       title: 'Brownstone Renovation Planning Guide',
       sub: 'Hidden conditions, permit types, LPC requirements, and realistic cost ranges.',
       formName: 'brownstone-guide',
       placeholder: 'Email for the brownstone guide',
+      pdf: '/downloads/lintelny-nyc-cost-guide-2026.pdf',
     },
     '/locations/nassau-kitchen-remodeling': {
       title: 'Long Island vs NYC Renovation Guide',
       sub: 'Permit differences by town, cost comparisons, and why most NYC contractors won\'t come.',
       formName: 'longisland-guide',
       placeholder: 'Email for the Long Island guide',
+      pdf: '/downloads/lintelny-longisland-vs-nyc-guide.pdf',
     },
     '/locations/suffolk-bathroom-remodeling': {
       title: 'Long Island vs NYC Renovation Guide',
       sub: 'Permit differences, cost comparisons, and how Long Island towns differ from DOB.',
       formName: 'longisland-guide',
       placeholder: 'Email for the Long Island guide',
+      pdf: '/downloads/lintelny-longisland-vs-nyc-guide.pdf',
     },
     '/locations/long-island-renovation': {
       title: 'Long Island vs NYC Renovation Guide',
       sub: 'Permit differences by town, cost comparisons, and what to expect in Nassau and Suffolk.',
       formName: 'longisland-guide',
       placeholder: 'Email for the Long Island guide',
+      pdf: '/downloads/lintelny-longisland-vs-nyc-guide.pdf',
     },
   };
 
@@ -280,11 +279,7 @@
 
       await submitToNetlify(magnet.formName, { email, source: path, guide: magnet.title });
 
-      banner.innerHTML = `
-        <div style="color:#fff;font-size:.9375rem;font-weight:600;padding:4px 0">
-          ✓ On its way to ${email}. Check your inbox in the next few minutes.
-        </div>`;
-      banner.style.background = '#16A34A';
+      window.location.href = magnet.pdf;
     });
   }
 
