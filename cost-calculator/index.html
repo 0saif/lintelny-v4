@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Renovation Cost Calculator NYC — Lintel NY</title>
+  <meta name="description" content="Describe your NYC or Long Island renovation in plain English. Our AI gives you an instant, intelligent cost estimate with permit requirements, timeline, and breakdown by trade.">
+  <meta property="og:title" content="AI Renovation Cost Calculator — Lintel NY">
+  <meta property="og:description" content="Not a dropdown form. Describe your project and get a real estimate with permit types, trade breakdown, and factors that move the price.">
+  <link rel="canonical" href="https://lintelny.com/cost-calculator">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #171717;
+      --orange:  #E85D2F;
+      --orange2: #C94D22;
+      --blue:    #1F3A5F;
+      --cream:   #F4F3EE;
+      --mortar:  #9A9690;
+      --warm:    #D5D3CD;
+      --white:   #FFFFFF;
+      --green:   #16A34A;
+      --red:     #DC2626;
+      --amber:   #D97706;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Nav (matches v4) ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--warm);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700; font-size: 1rem;
+      letter-spacing: 0.06em;
+      color: var(--black); text-decoration: none;
+    }
+    .nav-cta {
+      background: var(--orange); color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8125rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 8px 18px; border-radius: 3px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--orange2); }
+
+    /* ── Page Header ── */
+    .page-header {
+      padding: 100px 2rem 48px;
+      max-width: 860px; margin: 0 auto;
+      text-align: center;
+    }
+    .page-eyebrow {
+      font-size: 0.6875rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 16px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .eyebrow-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--orange);
+    }
+    .page-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(1.75rem, 5vw, 3.25rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--black);
+      margin-bottom: 16px;
+    }
+    .page-sub {
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      color: var(--mortar);
+      max-width: 580px;
+      margin: 0 auto 0;
+    }
+
+    /* ── Main Calculator Container ── */
+    .calc-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem 80px;
+    }
+
+    /* ── Input Panel ── */
+    .input-panel {
+      background: var(--white);
+      border: 1px solid var(--warm);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .input-header {
+      background: var(--black);
+      padding: 20px 28px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .input-header-icon {
+      width: 36px; height: 36px;
+      background: var(--orange);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .input-header-icon svg { width: 18px; height: 18px; fill: white; }
+    .input-header-text h2 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9375rem; font-weight: 700;
+      color: var(--white); letter-spacing: -0.01em;
+    }
+    .input-header-text p {
+      font-size: 0.8125rem; color: rgba(255,255,255,0.45);
+      margin-top: 2px;
+    }
+
+    .input-body { padding: 28px; }
+
+    .project-textarea {
+      width: 100%;
+      min-height: 140px;
+      border: 1.5px solid var(--warm);
+      border-radius: 6px;
+      padding: 16px 18px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--black);
+      background: var(--cream);
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .project-textarea:focus {
+      border-color: var(--orange);
+      background: var(--white);
+    }
+    .project-textarea::placeholder { color: var(--mortar); }
+
+    /* Example prompts */
+    .example-prompts {
+      margin-top: 12px;
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .example-prompt {
+      font-size: 0.8rem;
+      color: var(--mortar);
+      background: var(--cream);
+      border: 1px solid var(--warm);
+      border-radius: 20px;
+      padding: 5px 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      line-height: 1.4;
+    }
+    .example-prompt:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+      background: #FEF3EE;
+    }
+
+    /* Email gate */
+    .email-row {
+      display: flex; gap: 12px; margin-top: 16px; align-items: flex-end;
+    }
+    .email-group { flex: 1; }
+    .email-label {
+      display: block;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--black); margin-bottom: 6px;
+    }
+    .email-input {
+      width: 100%;
+      border: 1.5px solid var(--warm);
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9375rem;
+      color: var(--black);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .email-input:focus { border-color: var(--orange); }
+    .email-note {
+      font-size: 0.75rem; color: var(--mortar);
+      margin-top: 5px;
+    }
+
+    .calc-btn {
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      padding: 12px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: flex; align-items: center; gap: 8px;
+      height: 48px;
+    }
+    .calc-btn:hover:not(:disabled) {
+      background: var(--orange2);
+      transform: translateY(-1px);
+    }
+    .calc-btn:disabled {
+      background: var(--warm);
+      cursor: not-allowed;
+      transform: none;
+    }
+    .calc-btn svg { width: 16px; height: 16px; fill: white; }
+
+    /* ── Loading State ── */
+    .loading-panel {
+      background: var(--white);
+      border: 1px solid var(--warm);
+      border-radius: 8px;
+      padding: 48px 28px;
+      text-align: center;
+      display: none;
+    }
+    .loading-panel.show { display: block; }
+
+    .loading-spinner {
+      width: 40px; height: 40px;
+      border: 3px solid var(--warm);
+      border-top-color: var(--orange);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem; color: var(--mortar);
+    }
+    .loading-steps {
+      margin-top: 12px;
+      font-size: 0.8125rem; color: var(--warm);
+    }
+    .loading-step {
+      opacity: 0;
+      transition: opacity 0.4s;
+      margin-top: 4px;
+    }
+    .loading-step.visible { opacity: 1; }
+
+    /* ── Result Panel ── */
+    .result-panel {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .result-panel.show { display: flex; }
+
+    /* Estimate hero */
+    .estimate-hero {
+      background: var(--black);
+      border-radius: 8px;
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .estimate-hero::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--orange);
+    }
+    .estimate-label {
+      font-size: 0.6875rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 8px;
+    }
+    .estimate-range {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .estimate-summary {
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 24px;
+    }
+    .estimate-meta {
+      display: flex; gap: 32px; flex-wrap: wrap;
+    }
+    .meta-item { }
+    .meta-label {
+      font-size: 0.6875rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      display: block; margin-bottom: 4px;
+    }
+    .meta-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem; font-weight: 600;
+      color: var(--white);
+    }
+
+    /* Confidence badge */
+    .confidence-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 3px;
+      margin-top: 16px;
+    }
+    .confidence-badge.high { background: rgba(22,163,74,0.15); color: #4ADE80; }
+    .confidence-badge.medium { background: rgba(217,119,6,0.15); color: #FCD34D; }
+    .confidence-badge.low { background: rgba(220,38,38,0.15); color: #FCA5A5; }
+    .confidence-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+    }
+    .confidence-badge.high .confidence-dot { background: #4ADE80; }
+    .confidence-badge.medium .confidence-dot { background: #FCD34D; }
+    .confidence-badge.low .confidence-dot { background: #FCA5A5; }
+
+    /* Breakdown table */
+    .breakdown-panel {
+      background: var(--white);
+      border: 1px solid var(--warm);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--warm);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .panel-header-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%; background: var(--orange);
+    }
+    .panel-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8125rem; font-weight: 700;
+      color: var(--black); letter-spacing: 0.04em;
+    }
+
+    .breakdown-table { width: 100%; border-collapse: collapse; }
+    .breakdown-table th {
+      background: var(--cream);
+      padding: 10px 20px;
+      font-size: 0.6875rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--mortar);
+      text-align: left;
+    }
+    .breakdown-table th:not(:first-child) { text-align: right; }
+    .breakdown-table td {
+      padding: 14px 20px;
+      font-size: 0.9375rem;
+      border-bottom: 1px solid var(--cream);
+      vertical-align: top;
+    }
+    .breakdown-table tr:last-child td { border-bottom: none; }
+    .breakdown-table td:not(:first-child) {
+      text-align: right;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      white-space: nowrap;
+    }
+    .breakdown-cat { font-weight: 600; color: var(--black); }
+    .breakdown-note {
+      font-size: 0.8125rem;
+      color: var(--mortar);
+      margin-top: 2px;
+    }
+    .breakdown-table tr:hover td { background: #FAFAF9; }
+
+    /* Factors */
+    .factors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+    .factor-card {
+      border-radius: 6px;
+      padding: 16px 18px;
+      border-left: 3px solid transparent;
+    }
+    .factor-card.warning {
+      background: #FFF7ED;
+      border-left-color: var(--amber);
+    }
+    .factor-card.info {
+      background: #EFF6FF;
+      border-left-color: #3B82F6;
+    }
+    .factor-card.savings {
+      background: #F0FDF4;
+      border-left-color: var(--green);
+    }
+    .factor-icon { font-size: 1rem; margin-bottom: 6px; }
+    .factor-title {
+      font-size: 0.875rem; font-weight: 700;
+      color: var(--black); margin-bottom: 4px;
+    }
+    .factor-detail {
+      font-size: 0.8125rem;
+      color: var(--mortar);
+      line-height: 1.55;
+    }
+
+    /* Permit panel */
+    .permit-panel {
+      background: var(--blue);
+      border-radius: 8px;
+      padding: 20px 24px;
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .permit-badge {
+      background: var(--orange);
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem; font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+    .permit-body { }
+    .permit-title {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 4px;
+    }
+    .permit-detail {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.6;
+    }
+    .permit-timeline {
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Site visit note */
+    .site-visit-panel {
+      border: 1.5px dashed var(--warm);
+      border-radius: 8px;
+      padding: 20px 24px;
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .site-visit-icon {
+      width: 36px; height: 36px;
+      background: var(--orange);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .site-visit-icon svg { width: 18px; height: 18px; fill: white; }
+    .site-visit-text h4 {
+      font-size: 0.875rem; font-weight: 700;
+      color: var(--black); margin-bottom: 4px;
+    }
+    .site-visit-text p {
+      font-size: 0.875rem;
+      color: var(--mortar); line-height: 1.6;
+    }
+
+    /* CTA panel */
+    .cta-panel {
+      background: var(--black);
+      border-radius: 8px;
+      padding: 28px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 24px;
+      flex-wrap: wrap;
+    }
+    .cta-text h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.125rem; font-weight: 700;
+      color: white; margin-bottom: 4px;
+      letter-spacing: -0.02em;
+    }
+    .cta-text p {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.45);
+    }
+    .cta-btn {
+      background: var(--orange); color: white;
+      border: none; border-radius: 5px;
+      padding: 13px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s; white-space: nowrap;
+      display: inline-block;
+    }
+    .cta-btn:hover { background: var(--orange2); }
+
+    /* New estimate btn */
+    .new-estimate-btn {
+      background: none;
+      border: 1.5px solid var(--warm);
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8125rem; font-weight: 600;
+      color: var(--mortar);
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+      margin-top: 8px;
+    }
+    .new-estimate-btn:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    /* ── Error state ── */
+    .error-panel {
+      background: #FFF1F2;
+      border: 1px solid #FECDD3;
+      border-radius: 8px;
+      padding: 20px 24px;
+      display: none;
+    }
+    .error-panel.show { display: block; }
+    .error-text {
+      font-size: 0.9375rem;
+      color: var(--red);
+    }
+
+    /* ── Disclaimer ── */
+    .disclaimer {
+      margin-top: 24px;
+      font-size: 0.8rem;
+      color: var(--mortar);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .email-row { flex-direction: column; }
+      .calc-btn { width: 100%; justify-content: center; }
+      .estimate-meta { gap: 20px; }
+      .cta-panel { flex-direction: column; }
+      .cta-btn { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="/" class="nav-logo">LINTEL NY</a>
+  <a href="/contact" class="nav-cta">Get Estimate</a>
+</nav>
+
+<!-- Page Header -->
+<header class="page-header">
+  <div class="page-eyebrow">
+    <div class="eyebrow-dot"></div>
+    AI-Powered · NYC + Long Island · 2026
+    <div class="eyebrow-dot"></div>
+  </div>
+  <h1 class="page-title">Renovation Cost<br>Intelligence</h1>
+  <p class="page-sub">Describe your project in plain language. Our AI analyzes scope, location, building type, and hidden condition risk to give you a real estimate — not a dropdown average.</p>
+</header>
+
+<!-- Calculator -->
+<main class="calc-wrap">
+
+  <!-- Input Panel -->
+  <div class="input-panel" id="inputPanel">
+    <div class="input-header">
+      <div class="input-header-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+      </div>
+      <div class="input-header-text">
+        <h2>Describe Your Project</h2>
+        <p>Be specific — location, building type, what you want to change</p>
+      </div>
+    </div>
+    <div class="input-body">
+      <textarea
+        class="project-textarea"
+        id="projectInput"
+        placeholder="Example: Full gut renovation of a co-op bathroom in the Upper West Side. Pre-war building, 7th floor. We want to relocate the shower to the opposite wall, add radiant heat floors, and we're not sure what the plumbing situation looks like behind the walls..."
+        rows="5"
+      ></textarea>
+
+      <div class="example-prompts">
+        <span class="example-prompt" onclick="setExample(0)">Kitchen remodel, Park Slope brownstone</span>
+        <span class="example-prompt" onclick="setExample(1)">Co-op bathroom, pre-war Manhattan</span>
+        <span class="example-prompt" onclick="setExample(2)">Full home renovation, Garden City Nassau</span>
+        <span class="example-prompt" onclick="setExample(3)">Panel upgrade + partial rewire, Queens</span>
+        <span class="example-prompt" onclick="setExample(4)">Brownstone gut renovation, Harlem landmark district</span>
+        <span class="example-prompt" onclick="setExample(5)">Kitchen and two bathrooms, Suffolk County</span>
+      </div>
+
+      <div class="email-row">
+        <div class="email-group">
+          <label class="email-label" for="emailInput">Email for detailed report</label>
+          <input
+            type="email"
+            class="email-input"
+            id="emailInput"
+            placeholder="your@email.com"
+          >
+          <p class="email-note">We'll send the full breakdown + 2026 Cost Guide. No spam.</p>
+        </div>
+        <button class="calc-btn" id="calcBtn" onclick="runCalculator()">
+          <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Analyze Project
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-panel" id="loadingPanel">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Analyzing your project...</div>
+    <div class="loading-steps" id="loadingSteps">
+      <div class="loading-step" id="step1">Identifying scope and trade requirements</div>
+      <div class="loading-step" id="step2">Applying location and building type modifiers</div>
+      <div class="loading-step" id="step3">Evaluating permit requirements</div>
+      <div class="loading-step" id="step4">Calculating hidden condition risk factors</div>
+      <div class="loading-step" id="step5">Generating breakdown by trade</div>
+    </div>
+  </div>
+
+  <!-- Error -->
+  <div class="error-panel" id="errorPanel">
+    <p class="error-text" id="errorText">Something went wrong. Please try again or call (212) 347-2111.</p>
+  </div>
+
+  <!-- Result -->
+  <div class="result-panel" id="resultPanel">
+
+    <!-- Estimate Hero -->
+    <div class="estimate-hero" id="estimateHero">
+      <div class="estimate-label">Estimated Project Cost — 2026 NYC Market</div>
+      <div class="estimate-range" id="estimateRange">$45,000 – $85,000</div>
+      <div class="estimate-summary" id="estimateSummary"></div>
+      <div class="estimate-meta">
+        <div class="meta-item">
+          <span class="meta-label">Duration</span>
+          <span class="meta-value" id="timelineValue">8–14 weeks</span>
+        </div>
+        <div class="meta-item" id="timelineNoteWrap" style="display:none">
+          <span class="meta-label">Note</span>
+          <span class="meta-value" id="timelineNote" style="font-size:0.8125rem;color:rgba(255,255,255,0.5)"></span>
+        </div>
+      </div>
+      <div class="confidence-badge" id="confidenceBadge">
+        <div class="confidence-dot"></div>
+        <span id="confidenceText">High Confidence</span>
+      </div>
+    </div>
+
+    <!-- Breakdown -->
+    <div class="breakdown-panel" id="breakdownPanel">
+      <div class="panel-header">
+        <div class="panel-header-dot"></div>
+        <div class="panel-title">Cost Breakdown by Trade</div>
+      </div>
+      <table class="breakdown-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Low</th>
+            <th>High</th>
+          </tr>
+        </thead>
+        <tbody id="breakdownBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Factors -->
+    <div class="breakdown-panel" id="factorsPanel">
+      <div class="panel-header">
+        <div class="panel-header-dot"></div>
+        <div class="panel-title">Factors That Move the Price</div>
+      </div>
+      <div style="padding: 16px;">
+        <div class="factors-grid" id="factorsGrid"></div>
+      </div>
+    </div>
+
+    <!-- Permit -->
+    <div class="permit-panel" id="permitPanel">
+      <div class="permit-badge" id="permitType">ALT2</div>
+      <div class="permit-body">
+        <div class="permit-title">Required Permit</div>
+        <div class="permit-detail" id="permitDetail"></div>
+        <div class="permit-timeline" id="permitTimeline"></div>
+      </div>
+    </div>
+
+    <!-- Site Visit Note -->
+    <div class="site-visit-panel">
+      <div class="site-visit-icon">
+        <svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      </div>
+      <div class="site-visit-text">
+        <h4>What a Site Visit Would Clarify</h4>
+        <p id="siteVisitNote"></p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-panel">
+      <div class="cta-text">
+        <h3>Ready for a Written Estimate?</h3>
+        <p>Free on-site consultation · Written scope delivered within 48 hours · No obligation</p>
+      </div>
+      <a href="/contact" class="cta-btn">Schedule Free Estimate →</a>
+    </div>
+
+    <!-- New estimate -->
+    <button class="new-estimate-btn" onclick="resetCalculator()">
+      ← Analyze a different project
+    </button>
+
+  </div>
+
+  <p class="disclaimer">
+    Estimates reflect 2026 NYC and Long Island market rates for licensed, permitted, fully insured renovation work.
+    Actual costs depend on existing conditions, material selections, and building-specific requirements.
+    A written estimate requires a free on-site assessment. · Lintel NY HIC #2109847-DCA
+  </p>
+
+</main>
+
+<script>
+  const EXAMPLES = [
+    "Full gut kitchen renovation in a Park Slope brownstone, 1920s building. We want to open up the wall between kitchen and living room, update all the plumbing and electrical, new cabinets, and a waterfall island. Kitchen is about 200 square feet.",
+    "Full gut bathroom renovation in a pre-war co-op on the Upper West Side. We're on the 8th floor and the apartment below us is someone else's unit. We want to move the shower to the opposite wall and add a double vanity. Building has strict alteration rules.",
+    "Full home renovation in Garden City, Nassau County. 1960s colonial, about 2,400 square feet. Kitchen, two bathrooms, new flooring throughout, and we suspect the electrical panel needs upgrading. The house has never been renovated.",
+    "Electrical panel upgrade from 100A to 200A service and partial rewire of the kitchen and two bathrooms. The building is a 2-family in Woodside, Queens, built in 1948.",
+    "Full gut renovation of a 4-story brownstone in Harlem. It's in a historic district, currently configured as 4 apartments, we want to convert it back to a single-family home. We know we'll need LPC approval for the facade work.",
+    "Kitchen remodel and two full bathroom gut renovations in Huntington, Suffolk County. House is from 1978. We want the kitchen opened up, granite countertops, and both bathrooms fully gutted. One bathroom is on the second floor directly above the garage."
+  ];
+
+  function setExample(idx) {
+    document.getElementById('projectInput').value = EXAMPLES[idx];
+    document.getElementById('projectInput').focus();
+  }
+
+  function fmt(n) {
+    return '$' + Number(n).toLocaleString('en-US');
+  }
+
+  function showLoading() {
+    document.getElementById('inputPanel').style.display = 'none';
+    document.getElementById('loadingPanel').classList.add('show');
+    document.getElementById('errorPanel').classList.remove('show');
+    document.getElementById('resultPanel').classList.remove('show');
+
+    // Animate loading steps
+    const steps = ['step1','step2','step3','step4','step5'];
+    steps.forEach((id, i) => {
+      setTimeout(() => {
+        document.getElementById(id).classList.add('visible');
+      }, i * 900);
+    });
+  }
+
+  function showResult(estimate) {
+    document.getElementById('loadingPanel').classList.remove('show');
+    document.getElementById('resultPanel').classList.add('show');
+
+    // Estimate range
+    document.getElementById('estimateRange').textContent =
+      `${fmt(estimate.estimate.low)} – ${fmt(estimate.estimate.high)}`;
+
+    // Summary
+    document.getElementById('estimateSummary').textContent = estimate.summary;
+
+    // Timeline
+    const tl = estimate.timeline;
+    document.getElementById('timelineValue').textContent =
+      `${tl.low}–${tl.high} ${tl.unit}`;
+    if (tl.note) {
+      document.getElementById('timelineNoteWrap').style.display = 'block';
+      document.getElementById('timelineNote').textContent = tl.note;
+    }
+
+    // Confidence
+    const badge = document.getElementById('confidenceBadge');
+    badge.className = `confidence-badge ${estimate.confidence}`;
+    const labels = { high: 'High Confidence', medium: 'Medium Confidence', low: 'Low Confidence — More Info Needed' };
+    document.getElementById('confidenceText').textContent = labels[estimate.confidence] || estimate.confidence;
+
+    // Breakdown
+    const tbody = document.getElementById('breakdownBody');
+    tbody.innerHTML = '';
+    estimate.breakdown.forEach(item => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>
+          <div class="breakdown-cat">${item.category}</div>
+          ${item.note ? `<div class="breakdown-note">${item.note}</div>` : ''}
+        </td>
+        <td>${fmt(item.low)}</td>
+        <td>${fmt(item.high)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Factors
+    const factorIcons = {
+      warning: '⚠️',
+      info: 'ℹ️',
+      savings: '💡',
+    };
+    const grid = document.getElementById('factorsGrid');
+    grid.innerHTML = '';
+    estimate.factors.forEach(f => {
+      const div = document.createElement('div');
+      div.className = `factor-card ${f.type}`;
+      div.innerHTML = `
+        <div class="factor-icon">${factorIcons[f.type] || 'ℹ️'}</div>
+        <div class="factor-title">${f.title}</div>
+        <div class="factor-detail">${f.detail}</div>
+      `;
+      grid.appendChild(div);
+    });
+
+    // Permit
+    document.getElementById('permitType').textContent = estimate.permit.type;
+    document.getElementById('permitDetail').textContent = estimate.permit.detail;
+    document.getElementById('permitTimeline').textContent = `Processing time: ${estimate.permit.timeline}`;
+
+    // Site visit note
+    document.getElementById('siteVisitNote').textContent = estimate.siteVisitNote;
+
+    // Scroll to result
+    setTimeout(() => {
+      document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+
+  function showError(msg) {
+    document.getElementById('loadingPanel').classList.remove('show');
+    document.getElementById('inputPanel').style.display = '';
+    document.getElementById('errorPanel').classList.add('show');
+    document.getElementById('errorText').textContent = msg || 'Something went wrong. Please try again or call (212) 347-2111.';
+    document.getElementById('calcBtn').disabled = false;
+    document.getElementById('calcBtn').innerHTML = `
+      <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:white"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      Analyze Project
+    `;
+  }
+
+  function resetCalculator() {
+    document.getElementById('resultPanel').classList.remove('show');
+    document.getElementById('errorPanel').classList.remove('show');
+    document.getElementById('inputPanel').style.display = '';
+    document.getElementById('calcBtn').disabled = false;
+    document.getElementById('calcBtn').innerHTML = `
+      <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:white"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      Analyze Project
+    `;
+    // Reset loading steps
+    ['step1','step2','step3','step4','step5'].forEach(id => {
+      document.getElementById(id).classList.remove('visible');
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function runCalculator() {
+    const description = document.getElementById('projectInput').value.trim();
+    const email = document.getElementById('emailInput').value.trim();
+
+    if (description.length < 15) {
+      document.getElementById('projectInput').focus();
+      document.getElementById('projectInput').style.borderColor = 'var(--orange)';
+      setTimeout(() => {
+        document.getElementById('projectInput').style.borderColor = '';
+      }, 2000);
+      return;
+    }
+
+    const btn = document.getElementById('calcBtn');
+    btn.disabled = true;
+    btn.innerHTML = `
+      <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:white;animation:spin 0.8s linear infinite"><path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+      Analyzing...
+    `;
+
+    showLoading();
+
+    try {
+      const res = await fetch('/.netlify/functions/calculator', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description, email }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.estimate) {
+        throw new Error(data.error || 'Failed to generate estimate');
+      }
+
+      // Submit email to Netlify Forms if provided
+      if (email) {
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            'form-name': 'calculator-gate',
+            email,
+            source: 'smart-calculator',
+          }).toString(),
+        }).catch(() => {});
+      }
+
+      showResult(data.estimate);
+
+    } catch (err) {
+      console.error(err);
+      showError(err.message || 'Unable to generate estimate. Please call (212) 347-2111.');
+    }
+  }
+
+  // Allow Enter in textarea with Cmd/Ctrl
+  document.getElementById('projectInput').addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+      runCalculator();
+    }
+  });
+</script>
+
+<script src="/js/agent-widget.js" defer></script>
+
+</body>
+</html>
