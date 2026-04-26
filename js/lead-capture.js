@@ -186,7 +186,7 @@
       await submitToNetlify('cost-guide-request', { email, name, source: 'exit-intent' });
 
       setTimeout(() => {
-        window.open('/downloads/lintelny-nyc-cost-guide-2026.pdf', '_blank');
+        window.open('/downloads/lintelny-nyc-cost-guide-2026.pdf', '_blank', 'noopener,noreferrer');
         overlay.classList.remove('show');
       }, 1500);
     });
@@ -283,7 +283,7 @@
       await submitToNetlify(magnet.formName, { email, source: path, guide: magnet.title });
 
       banner.style.background = '#16A34A';
-      setTimeout(() => window.open(`/downloads/${magnet.pdfFile}`, '_blank'), 1500);
+      setTimeout(() => window.open(`/downloads/${magnet.pdfFile}`, '_blank', 'noopener,noreferrer'), 1500);
     });
   }
 
