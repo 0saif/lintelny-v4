@@ -1,4 +1,4 @@
-# Lintel NY — Website v3 Final
+# Lintel NY — Website v4 Final
 
 Static HTML website for Lintel NY Home Improvement Contracting with Decap CMS.
 
