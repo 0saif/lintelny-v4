@@ -147,6 +147,24 @@ exports.handler = async (event) => {
       };
     }
 
+    if (description.length > 2000) {
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ error: 'Description is too long. Please keep it under 2,000 characters.' }),
+      };
+    }
+
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ error: 'Invalid email address.' }),
+      };
+    }
+
+    const safeDescription = description.trim().slice(0, 2000);
+
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -161,7 +179,7 @@ exports.handler = async (event) => {
         messages: [
           {
             role: 'user',
-            content: `Analyze this renovation project and provide a cost estimate:\n\n${description}`,
+            content: `Analyze this renovation project and provide a cost estimate:\n\n${safeDescription}`,
           },
         ],
       }),
@@ -200,7 +218,7 @@ exports.handler = async (event) => {
     };
 
   } catch (err) {
-    console.error('Calculator error:', err);
+    console.error('Calculator error:', err.message || err);
     return {
       statusCode: 500,
       headers,

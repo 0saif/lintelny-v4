@@ -142,8 +142,8 @@
         </div>
         <div id="ln-exit-body">
           <p class="ln-ex-sub">Room-by-room cost breakdowns, borough comparisons, what moves the price, and 10 questions to ask every contractor before you hire them.</p>
-          <input class="ln-ex-input" type="email" id="ln-exit-email" placeholder="Your email address">
-          <input class="ln-ex-input" type="text" id="ln-exit-name" placeholder="Your name (optional)">
+          <input class="ln-ex-input" type="email" id="ln-exit-email" placeholder="Your email address" maxlength="254">
+          <input class="ln-ex-input" type="text" id="ln-exit-name" placeholder="Your name (optional)" maxlength="100">
           <button class="ln-ex-btn" id="ln-exit-submit">Send Me the Guide →</button>
           <p class="ln-ex-dismiss" id="ln-exit-dismiss">No thanks, I'll figure it out myself</p>
         </div>
@@ -260,7 +260,7 @@
         <p>${magnet.sub}</p>
       </div>
       <div class="ln-magnet-form">
-        <input class="ln-magnet-inp" type="email" placeholder="${magnet.placeholder}" id="ln-mag-email">
+        <input class="ln-magnet-inp" type="email" placeholder="${magnet.placeholder}" id="ln-mag-email" maxlength="254">
         <button class="ln-magnet-btn" id="ln-mag-btn">Send Free →</button>
       </div>
     `;
@@ -321,7 +321,7 @@
             </div>
             <div id="ln-exit-body">
               <p class="ln-ex-sub">We'll send the detailed breakdown to your inbox — plus the full 2026 NYC Renovation Cost Guide at no charge.</p>
-              <input class="ln-ex-input" type="email" id="ln-gate-email" placeholder="Your email address">
+              <input class="ln-ex-input" type="email" id="ln-gate-email" placeholder="Your email address" maxlength="254">
               <button class="ln-ex-btn" id="ln-gate-submit">Show My Estimate →</button>
               <p class="ln-ex-dismiss" id="ln-gate-skip">Skip — just show me the range</p>
             </div>

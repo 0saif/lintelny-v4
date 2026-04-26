@@ -155,14 +155,14 @@
       <div id="ln-capture">
         <div class="ln-cap-title">Send my free estimate range</div>
         <div class="ln-cap-row">
-          <input class="ln-inp" id="ln-cname" type="text" placeholder="Your name">
-          <input class="ln-inp" id="ln-cphone" type="tel" placeholder="Phone">
+          <input class="ln-inp" id="ln-cname" type="text" placeholder="Your name" maxlength="100">
+          <input class="ln-inp" id="ln-cphone" type="tel" placeholder="Phone" maxlength="20">
         </div>
-        <input class="ln-inp" id="ln-cemail" type="email" placeholder="Email address">
+        <input class="ln-inp" id="ln-cemail" type="email" placeholder="Email address" maxlength="254">
         <button class="ln-cap-btn" id="ln-cap-submit">Send Estimate Request →</button>
       </div>
       <div id="ln-input-row">
-        <textarea id="ln-inp" rows="1" placeholder="Ask about your renovation..."></textarea>
+        <textarea id="ln-inp" rows="1" placeholder="Ask about your renovation..." maxlength="1000"></textarea>
         <button id="ln-send">
           <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
         </button>
@@ -246,7 +246,7 @@
 
   // ── Send message ───────────────────────────────────────────────────
   async function send() {
-    const text = inp.value.trim();
+    const text = inp.value.trim().slice(0, 1000);
     if (!text || isTyping) return;
     inp.value = '';
     inp.style.height = 'auto';
@@ -266,10 +266,13 @@
     });
 
     try {
+      // Keep only the last 10 messages (5 turns) to stay within context limits
+      const trimmedMessages = messages.length > 10 ? messages.slice(-10) : messages;
+
       const res = await fetch(CFG.endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages, lead: leadData }),
+        body: JSON.stringify({ messages: trimmedMessages, lead: leadData }),
       });
       const data = await res.json();
       hideTyping();
