@@ -8,6 +8,10 @@ const BASE = (() => {
   return '';
 })();
 
+function escHtml(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
   initReveal();
@@ -170,7 +174,7 @@ async function loadBlogPost() {
   const c = document.getElementById('blog-post-content');
   if (!c) return;
   const slug = new URLSearchParams(window.location.search).get('slug');
-  if (!slug) { c.innerHTML = '<p>Post not found.</p>'; return; }
+  if (!slug || !/^[a-z0-9-]+$/.test(slug)) { c.innerHTML = '<p>Post not found.</p>'; return; }
   try {
     const res = await fetch(BASE + '_data/blog/' + slug + '.json');
     if (!res.ok) { c.innerHTML = '<p>Post not found.</p>'; return; }
@@ -184,7 +188,7 @@ async function loadBlogPost() {
       body = '<p>' + body + '</p>';
       body = body.replace(/<p><h/g,'<h').replace(/<\/h([23])><\/p>/g,'</h$1>');
     }
-    c.innerHTML = `<div class="page-hero"><div class="grid-bg"></div><div class="page-hero__inner"><div class="page-hero__crumb"><a href="${BASE}index.html">Home</a><span>→</span><a href="${BASE}blog.html">Journal</a><span>→</span>${post.title}</div><p class="label" style="margin-top:16px">${post.date||''}</p><h1>${post.title}</h1></div></div><div class="section"><div class="container"><div class="post-body">${body}</div><div class="post-body mt-lg text-center"><p class="text-gray" style="margin-bottom:24px;">Ready to start your renovation?</p><a href="${BASE}contact.html" class="btn btn-primary">Get Free Estimate</a></div></div></div>`;
+    c.innerHTML = `<div class="page-hero"><div class="grid-bg"></div><div class="page-hero__inner"><div class="page-hero__crumb"><a href="${BASE}index.html">Home</a><span>→</span><a href="${BASE}blog.html">Journal</a><span>→</span>${escHtml(post.title)}</div><p class="label" style="margin-top:16px">${escHtml(post.date||'')}</p><h1>${escHtml(post.title)}</h1></div></div><div class="section"><div class="container"><div class="post-body">${body}</div><div class="post-body mt-lg text-center"><p class="text-gray" style="margin-bottom:24px;">Ready to start your renovation?</p><a href="${BASE}contact.html" class="btn btn-primary">Get Free Estimate</a></div></div></div>`;
   } catch(e) { c.innerHTML = '<div class="section"><div class="container"><p>Unable to load post.</p></div></div>'; }
 }
 

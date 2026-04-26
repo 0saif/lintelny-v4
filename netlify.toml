@@ -32,6 +32,18 @@
     Cache-Control = "public, max-age=3600, s-maxage=86400"
 
 [[redirects]]
+  from = "http://lintelny.com/*"
+  to = "https://lintelny.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.lintelny.com/*"
+  to = "https://lintelny.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/admin/*"
   to = "/admin/index.html"
   status = 200

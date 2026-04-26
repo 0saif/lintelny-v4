@@ -176,7 +176,7 @@ ${transcript}
   // or use a free email service like EmailJS / Brevo API
   // For now: log to console (visible in Netlify function logs)
   // and return — Netlify Forms handles the main contact form
-  console.log('LEAD CAPTURED:', body);
+  console.log('LEAD CAPTURED: success');
 
   // Optional: send via Brevo (Sendinblue) API — add BREVO_API_KEY to env variables
   if (process.env.BREVO_API_KEY) {
