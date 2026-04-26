@@ -75,6 +75,7 @@
         <span class="example-prompt" onclick="setExample(5)">Kitchen and two bathrooms, Suffolk County</span>
       </div>
 
+      <p class="input-error" id="inputError" style="display:none;color:#e05a2b;font-size:0.8125rem;margin-bottom:8px;font-family:var(--mono);">Please describe your project before analyzing.</p>
       <div class="email-row">
         <div class="email-group">
           <label class="email-label" for="emailInput">Email for detailed report</label>
@@ -356,11 +357,14 @@
     if (description.length < 15) {
       document.getElementById('projectInput').focus();
       document.getElementById('projectInput').style.borderColor = 'var(--orange)';
+      document.getElementById('inputError').style.display = 'block';
       setTimeout(() => {
         document.getElementById('projectInput').style.borderColor = '';
-      }, 2000);
+        document.getElementById('inputError').style.display = 'none';
+      }, 3000);
       return;
     }
+    document.getElementById('inputError').style.display = 'none';
 
     const btn = document.getElementById('calcBtn');
     btn.disabled = true;
