@@ -147,7 +147,7 @@ async function loadBlogPreviews() {
       try { const r = await fetch(BASE + '_data/blog/' + f); if (r.ok) { const p = await r.json(); if (p.published !== false) posts.push(p); } } catch(e) {}
     }
     if (!posts.length) return;
-    c.innerHTML = posts.map(p => `<a href="${BASE}blog/post.html?slug=${p.slug}" class="blog-card"><div class="blog-card__date">${p.date||''}</div><div class="blog-card__title">${p.title}</div><div class="blog-card__excerpt">${(p.excerpt||'').substring(0,140)}...</div><span class="btn-secondary" style="font-size:12px;">Read →</span></a>`).join('');
+    c.innerHTML = posts.map(p => `<a href="${BASE}blog/post.html?slug=${encodeURIComponent(p.slug||'')}" class="blog-card"><div class="blog-card__date">${escHtml(p.date||'')}</div><div class="blog-card__title">${escHtml(p.title)}</div><div class="blog-card__excerpt">${escHtml((p.excerpt||'').substring(0,140))}...</div><span class="btn-secondary" style="font-size:12px;">Read →</span></a>`).join('');
   } catch(e) {}
 }
 
@@ -165,7 +165,7 @@ async function loadBlogListing() {
     }
     posts.sort((a,b) => (b.date||'').localeCompare(a.date||''));
     if (!posts.length) { c.innerHTML = '<div class="empty"><div class="empty__title">Articles coming soon.</div></div>'; return; }
-    c.innerHTML = '<div class="blog-grid">' + posts.map(p => `<a href="${BASE}blog/post.html?slug=${p.slug}" class="blog-card"><div class="blog-card__date">${p.date||''}</div><div class="blog-card__title">${p.title}</div><div class="blog-card__excerpt">${(p.excerpt||'').substring(0,160)}</div><span class="btn-secondary" style="font-size:12px;">Read →</span></a>`).join('') + '</div>';
+    c.innerHTML = '<div class="blog-grid">' + posts.map(p => `<a href="${BASE}blog/post.html?slug=${encodeURIComponent(p.slug||'')}" class="blog-card"><div class="blog-card__date">${escHtml(p.date||'')}</div><div class="blog-card__title">${escHtml(p.title)}</div><div class="blog-card__excerpt">${escHtml((p.excerpt||'').substring(0,160))}</div><span class="btn-secondary" style="font-size:12px;">Read →</span></a>`).join('') + '</div>';
   } catch(e) { c.innerHTML = '<div class="empty"><div class="empty__title">Articles coming soon.</div></div>'; }
 }
 
@@ -179,9 +179,20 @@ async function loadBlogPost() {
     const res = await fetch(BASE + '_data/blog/' + slug + '.json');
     if (!res.ok) { c.innerHTML = '<p>Post not found.</p>'; return; }
     const post = await res.json();
-    document.title = (post.meta_title || post.title) + ' | Lintel NY';
-    const md = document.querySelector('meta[name="description"]');
-    if (md) md.setAttribute('content', post.meta_description || post.excerpt || '');
+    const postTitle = (post.meta_title || post.title) + ' | Lintel NY';
+    const postDesc = post.meta_description || post.excerpt || '';
+    const postUrl = 'https://lintelny.com/blog/post.html?slug=' + encodeURIComponent(slug);
+    document.title = postTitle;
+    const setMeta = (sel, val) => { const el = document.querySelector(sel); if (el) el.setAttribute('content', val); };
+    setMeta('meta[name="description"]', postDesc);
+    setMeta('meta[property="og:title"]', postTitle);
+    setMeta('meta[property="og:description"]', postDesc);
+    setMeta('meta[property="og:url"]', postUrl);
+    setMeta('meta[property="og:type"]', 'article');
+    setMeta('meta[name="twitter:title"]', postTitle);
+    setMeta('meta[name="twitter:description"]', postDesc);
+    const canon = document.querySelector('link[rel="canonical"]');
+    if (canon) canon.setAttribute('href', postUrl);
     let body = post.body || '';
     if (!body.includes('<p>') && !body.includes('<h2>')) {
       body = body.replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n\n/g,'</p><p>');
