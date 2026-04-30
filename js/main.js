@@ -199,7 +199,7 @@ async function loadBlogPost() {
       body = '<p>' + body + '</p>';
       body = body.replace(/<p><h/g,'<h').replace(/<\/h([23])><\/p>/g,'</h$1>');
     }
-    c.innerHTML = `<div class="page-hero"><div class="grid-bg"></div><div class="page-hero__inner"><div class="page-hero__crumb"><a href="${BASE}index.html">Home</a><span>→</span><a href="${BASE}blog.html">Journal</a><span>→</span>${escHtml(post.title)}</div><p class="label" style="margin-top:16px">${escHtml(post.date||'')}</p><h1>${escHtml(post.title)}</h1></div></div><div class="section"><div class="container"><div class="post-body">${body}</div><div class="post-body mt-lg text-center"><p class="text-gray" style="margin-bottom:24px;">Ready to start your renovation?</p><a href="${BASE}contact.html" class="btn btn-primary">Get Free Estimate</a></div></div></div>`;
+    c.innerHTML = `<div class="page-hero"><div class="grid-bg"></div><div class="page-hero__inner"><div class="page-hero__crumb"><a href="/">Home</a><span>→</span><a href="/blog/">Journal</a><span>→</span>${escHtml(post.title)}</div><p class="label" style="margin-top:16px">${escHtml(post.date||'')}</p><h1>${escHtml(post.title)}</h1></div></div><div class="section"><div class="container"><div class="post-body">${body}</div><div class="post-body mt-lg text-center"><p class="text-gray" style="margin-bottom:24px;">Ready to start your renovation?</p><a href="/contact/" class="btn btn-primary">Get Free Estimate</a></div></div></div>`;
   } catch(e) { c.innerHTML = '<div class="section"><div class="container"><p>Unable to load post.</p></div></div>'; }
 }
 
@@ -228,7 +228,7 @@ async function loadGallery() {
       c.innerHTML = f.map(x => `<div class="gallery-card">${x.cover ? `<img src="${x.cover}" alt="${x.title}" loading="lazy">` : ''}<div class="gallery-card__overlay"><div class="gallery-card__title">${x.title}</div><div class="gallery-card__loc">${x.location} · ${x.service}</div></div></div>`).join('');
     }
   } catch(e) { showEmpty(c); }
-  function showEmpty(el) { el.innerHTML = `<div class="empty"><div class="empty__title">Projects coming soon.</div><p>Contact us to discuss yours.</p><a href="${BASE}contact.html" class="btn btn-primary mt-md">Get in Touch</a></div>`; }
+  function showEmpty(el) { el.innerHTML = `<div class="empty"><div class="empty__title">Projects coming soon.</div><p>Contact us to discuss yours.</p><a href="/contact/" class="btn btn-primary mt-md">Get in Touch</a></div>`; }
 }
 
 /* ── Reviews ────────────────────────────────────────────────── */

@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://lintelny.com/</loc><lastmod>2026-04-26</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://lintelny.com/about.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://lintelny.com/contact.html</loc><lastmod>2026-04-26</lastmod><priority>0.8</priority></url>
-  <url><loc>https://lintelny.com/blog.html</loc><lastmod>2026-04-26</lastmod><priority>0.8</priority></url>
-  <url><loc>https://lintelny.com/gallery.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://lintelny.com/cost-calculator/</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://lintelny.com/services/bathroom-renovation-nyc.html</loc><lastmod>2026-04-26</lastmod><priority>0.9</priority></url>
-  <url><loc>https://lintelny.com/services/kitchen-remodeling-nyc.html</loc><lastmod>2026-04-26</lastmod><priority>0.9</priority></url>
-  <url><loc>https://lintelny.com/services/coop-condo-renovation-nyc.html</loc><lastmod>2026-04-26</lastmod><priority>0.9</priority></url>
-  <url><loc>https://lintelny.com/services/brownstone-renovation-brooklyn.html</loc><lastmod>2026-04-26</lastmod><priority>0.9</priority></url>
-  <url><loc>https://lintelny.com/services/electrical-services-nyc.html</loc><lastmod>2026-04-26</lastmod><priority>0.9</priority></url>
-  <url><loc>https://lintelny.com/services/roofing-contractor-nyc.html</loc><lastmod>2026-04-26</lastmod><priority>0.9</priority></url>
-  <url><loc>https://lintelny.com/locations/brooklyn-brownstone-renovation.html</loc><lastmod>2026-04-26</lastmod><priority>0.8</priority></url>
-  <url><loc>https://lintelny.com/locations/manhattan-coop-condo-renovation.html</loc><lastmod>2026-04-26</lastmod><priority>0.8</priority></url>
-  <url><loc>https://lintelny.com/locations/nassau-kitchen-remodeling.html</loc><lastmod>2026-04-26</lastmod><priority>0.8</priority></url>
-  <url><loc>https://lintelny.com/locations/suffolk-bathroom-remodeling.html</loc><lastmod>2026-04-26</lastmod><priority>0.8</priority></url>
-  <url><loc>https://lintelny.com/locations/queens-home-renovation.html</loc><lastmod>2026-04-26</lastmod><priority>0.8</priority></url>
-  <url><loc>https://lintelny.com/locations/bronx-home-renovation.html</loc><lastmod>2026-04-26</lastmod><priority>0.8</priority></url>
-  <url><loc>https://lintelny.com/locations/staten-island-renovation.html</loc><lastmod>2026-04-26</lastmod><priority>0.8</priority></url>
-  <url><loc>https://lintelny.com/locations/long-island-renovation.html</loc><lastmod>2026-04-26</lastmod><priority>0.8</priority></url>
+  <!-- Core pages -->
+  <url><loc>https://lintelny.com/</loc><lastmod>2026-04-29</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://lintelny.com/about/</loc><lastmod>2026-04-29</lastmod><priority>0.7</priority></url>
+  <url><loc>https://lintelny.com/contact/</loc><lastmod>2026-04-29</lastmod><priority>0.9</priority></url>
+  <url><loc>https://lintelny.com/blog/</loc><lastmod>2026-04-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://lintelny.com/gallery/</loc><lastmod>2026-04-29</lastmod><priority>0.7</priority></url>
+  <url><loc>https://lintelny.com/cost-calculator/</loc><lastmod>2026-04-29</lastmod><priority>0.7</priority></url>
+  <!-- Service pages -->
+  <url><loc>https://lintelny.com/services/bathroom-renovation-nyc/</loc><lastmod>2026-04-29</lastmod><priority>0.9</priority></url>
+  <url><loc>https://lintelny.com/services/kitchen-remodeling-nyc/</loc><lastmod>2026-04-29</lastmod><priority>0.9</priority></url>
+  <url><loc>https://lintelny.com/services/coop-condo-renovation-nyc/</loc><lastmod>2026-04-29</lastmod><priority>0.9</priority></url>
+  <url><loc>https://lintelny.com/services/brownstone-renovation-brooklyn/</loc><lastmod>2026-04-29</lastmod><priority>0.9</priority></url>
+  <url><loc>https://lintelny.com/services/electrical-services-nyc/</loc><lastmod>2026-04-29</lastmod><priority>0.9</priority></url>
+  <url><loc>https://lintelny.com/services/roofing-contractor-nyc/</loc><lastmod>2026-04-29</lastmod><priority>0.9</priority></url>
+  <!-- Location pages -->
+  <url><loc>https://lintelny.com/locations/brooklyn-brownstone-renovation/</loc><lastmod>2026-04-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://lintelny.com/locations/manhattan-coop-condo-renovation/</loc><lastmod>2026-04-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://lintelny.com/locations/queens-home-renovation/</loc><lastmod>2026-04-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://lintelny.com/locations/bronx-home-renovation/</loc><lastmod>2026-04-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://lintelny.com/locations/staten-island-renovation/</loc><lastmod>2026-04-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://lintelny.com/locations/nassau-kitchen-remodeling/</loc><lastmod>2026-04-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://lintelny.com/locations/suffolk-bathroom-remodeling/</loc><lastmod>2026-04-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://lintelny.com/locations/long-island-renovation/</loc><lastmod>2026-04-29</lastmod><priority>0.8</priority></url>
+  <!-- Trust & Policy pages -->
+  <url><loc>https://lintelny.com/trust/licensing-insurance/</loc><lastmod>2026-04-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://lintelny.com/trust/how-our-contract-works/</loc><lastmod>2026-04-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://lintelny.com/trust/change-order-policy/</loc><lastmod>2026-04-29</lastmod><priority>0.7</priority></url>
+  <url><loc>https://lintelny.com/trust/warranty-closeout/</loc><lastmod>2026-04-29</lastmod><priority>0.7</priority></url>
+  <url><loc>https://lintelny.com/trust/permit-process/</loc><lastmod>2026-04-29</lastmod><priority>0.7</priority></url>
+  <url><loc>https://lintelny.com/trust/coop-alteration-checklist/</loc><lastmod>2026-04-29</lastmod><priority>0.8</priority></url>
 </urlset>
