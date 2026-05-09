@@ -44,6 +44,48 @@
   force = true
 
 [[redirects]]
+  from = "https://www.lintelny.com/*"
+  to = "https://lintelny.com/:splat"
+  status = 301
+  force = true
+
+# Redirect .html extension URLs to canonical trailing-slash URLs
+[[redirects]]
+  from = "/about.html"
+  to = "/about/"
+  status = 301
+
+[[redirects]]
+  from = "/blog.html"
+  to = "/blog/"
+  status = 301
+
+[[redirects]]
+  from = "/contact.html"
+  to = "/contact/"
+  status = 301
+
+[[redirects]]
+  from = "/gallery.html"
+  to = "/gallery/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/post.html"
+  to = "/blog/post/"
+  status = 301
+
+[[redirects]]
+  from = "/services/:name.html"
+  to = "/services/:name/"
+  status = 301
+
+[[redirects]]
+  from = "/locations/:name.html"
+  to = "/locations/:name/"
+  status = 301
+
+[[redirects]]
   from = "/about/"
   to = "/about.html"
   status = 200
